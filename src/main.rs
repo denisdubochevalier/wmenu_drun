@@ -1,6 +1,6 @@
 #![feature(option_result_contains)]
 #![feature(hash_drain_filter)]
-// This will only work on linux, we're using DMenu anyways.
+// This will only work on linux, we're using WMenu anyways.
 #![cfg(target_os = "linux")]
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader, Read, Write};
@@ -37,7 +37,7 @@ fn main() -> Result {
     let args = std::env::args().collect_vec();
 
     if args.contains(&"--help".to_string()) {
-        println!("Usage: dmenu_drun [--help] [-d] [-p]");
+        println!("Usage: wmenu_drun [--help] [-d] [-p]");
         println!("    -p        hide files in $PATH");
         println!("    -d        hide desktop files");
         return Ok(());
@@ -45,7 +45,7 @@ fn main() -> Result {
 
     let cache_dir = dirs::cache_dir().unwrap();
     std::fs::create_dir_all(&cache_dir)?;
-    let cache_path = cache_dir.join(".dmenu_rs_cache");
+    let cache_path = cache_dir.join(".wmenu_rs_cache");
 
     let cache_mtime = cache_path
         .metadata()
@@ -86,26 +86,22 @@ fn main() -> Result {
             .collect();
     }
 
-    let histfile =
-        PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".dmenu_drun_histfile");
-
-    let dmenu = Command::new("dmenu")
+    let wmenu = Command::new("wmenu")
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
-        .args(["-H", histfile.to_string_lossy().to_string().as_str()])
         .spawn()
-        .expect("Could not spawn dmenu");
+        .expect("Could not spawn wmenu");
 
-    let mut dmenu_stdin = dmenu.stdin.as_ref().expect("Could not write to dmenu");
+    let mut wmenu_stdin = wmenu.stdin.as_ref().expect("Could not write to wmenu");
 
     let mut formatted = cache.keys().collect_vec();
     formatted.sort_unstable();
     formatted.dedup();
     let formatted = formatted.iter().join("\n");
 
-    writeln!(dmenu_stdin, "{}", formatted)?;
+    writeln!(wmenu_stdin, "{}", formatted)?;
 
-    let result = dmenu.wait_with_output().expect("Could not wait for dmenu");
+    let result = wmenu.wait_with_output().expect("Could not wait for wmenu");
     let output = String::from_utf8_lossy(&result.stdout)
         .trim()
         .trim_end_matches(".desktop")

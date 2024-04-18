@@ -1,9 +1,9 @@
 [package]
-name = "dmenu_drun"
-description = "Wrapper around dmenu(1) to also display desktop files."
-authors = [ "Tom van Dijk <18gatenmaker6@gmail.com>" ]
-homepage = "https://github.com/dtomvan/dmenu/blob/master/dmenu_drun"
-repository = "https://github.com/dtomvan/dmenu_drun/"
+name = "wmenu_drun"
+description = "Wrapper around wmenu(1) to also display desktop files."
+authors = [ "Tom van Dijk <18gatenmaker6@gmail.com>", "Denis Chevalier <contact@denischevalier.fr>" ]
+homepage = "https://github.com/denisdubochevalier/wmenu/blob/master/wmenu_drun"
+repository = "https://github.com/dtomvan/wmenu_drun/"
 license = "MIT"
 version = "0.1.1"
 edition = "2021"
