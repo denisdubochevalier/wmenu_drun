@@ -89,7 +89,7 @@ fn main() -> Result {
     let wmenu = Command::new("wmenu")
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
-        .args(["-N", "efefef", "-n", "252525", "-m", "efefef", "-M", "252525", "-s", "efefef", "-S", "252525", "-p", "Applications"])
+        .args(["-N", "efefef", "-n", "272b2e", "-m", "efefef", "-M", "272b2e", "-s", "efefef", "-S", "272b2e", "-p", "Applications"])
         .spawn()
         .expect("Could not spawn wmenu");
 
